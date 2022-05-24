@@ -1,7 +1,7 @@
 #include "./ui_widget.h"
 #include "widget.h"
 
-Widget::Widget(QWidget *parent)
+Widget::Widget(QWidget* parent)
 {
     // 界面初始化
     this->InterfaceInitialization();
@@ -52,11 +52,10 @@ void Widget::ThreadedTasks()
 }
 void Widget::MapInitialize()
 {
-    if (!drawMapList.isEmpty())
-    {
+    if (!drawMapList.isEmpty()) {
         drawMapList.removeLast();
     }
-    Map *mp = new Map;
+    Map* mp = new Map;
     drawMapList.prepend(mp);
     QPainter p(pix);
     drawMapList[0]->drawMap(&p);
@@ -64,7 +63,7 @@ void Widget::MapInitialize()
 }
 void Widget::MapReset()
 {
-    Map *mp = new Map(temp);
+    Map* mp = new Map(temp);
     QPainter p(pix);
     drawMapList.prepend(mp);
     drawMapList.removeLast();
@@ -97,40 +96,42 @@ void Widget::GameInfoUpdate(int x, int y, int step)
 // 线程信号连接
 void Widget::ThreadSignalConnections()
 {
-    connect(dbfs, &DBFS::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color)
-            {
+    connect(dbfs, &DBFS::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color) {
         this->mapDraw(x, y, step, Dir, Color);
-        this->GameInfoUpdate(x, y, step); });
-    connect(dbfs, &DBFS::SendFlags, this, [=]()
-            { this->progressBarEnd(); });
-    connect(bfs, &BFS::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color)
-            {
+        this->GameInfoUpdate(x, y, step);
+    });
+    connect(dbfs, &DBFS::SendFlags, this, [=]() {
+        this->progressBarEnd();
+    });
+    connect(bfs, &BFS::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color) {
         this->mapDraw(x, y, step, Dir, Color);
-        this->GameInfoUpdate(x, y, step); });
-    connect(bfs, &BFS::SendFlags, this, [=]()
-            { this->progressBarEnd(); });
-    connect(dfs, &DFS::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color)
-            {
+        this->GameInfoUpdate(x, y, step);
+    });
+    connect(bfs, &BFS::SendFlags, this, [=]() {
+        this->progressBarEnd();
+    });
+    connect(dfs, &DFS::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color) {
         this->mapDraw(x, y, step, Dir, Color);
-        this->GameInfoUpdate(x, y, step); });
-    connect(dfs, &DFS::SendFlags, this, [=]()
-            { this->progressBarEnd(); });
+        this->GameInfoUpdate(x, y, step);
+    });
+    connect(dfs, &DFS::SendFlags, this, [=]() {
+        this->progressBarEnd();
+    });
 }
 // 时间信号连接
 void Widget::TimeSignalConnections()
 {
-    connect(tim, &QTimer::timeout, this, [=]()
-            {
+    connect(tim, &QTimer::timeout, this, [=]() {
         bfs->resume();
         dfs->resume();
         dbfs->resume();
-        update(); });
+        update();
+    });
 }
 // 按钮连接设置
 void Widget::buttonSettings()
 {
-    connect(ui->GenerateMap, &QPushButton::clicked, this, [=]()
-            {
+    connect(ui->GenerateMap, &QPushButton::clicked, this, [=]() {
         // 释放被保留的线程
         pool->releaseThread();
         // 清除所有当前排队但未开始运行的任务
@@ -144,10 +145,10 @@ void Widget::buttonSettings()
         // 复位信息显示
         this->GameInfo();
         // 更新
-        update(); });
+        update();
+    });
     // 信号连接
-    connect(ui->rebuild, &QPushButton::clicked, this, [=]()
-            {
+    connect(ui->rebuild, &QPushButton::clicked, this, [=]() {
         // 释放被保留的线程
         pool->releaseThread();
         // 清除所有当前排队但未开始运行的任务
@@ -161,41 +162,44 @@ void Widget::buttonSettings()
         // 复位地图
         this->MapReset();
         // 更新
-        update(); });
-    connect(ui->Dbfs, &QPushButton::clicked, this, [=]()
-            {
+        update();
+    });
+    connect(ui->Dbfs, &QPushButton::clicked, this, [=]() {
         dbfs->init(drawMapList[0], drawMapList[0]->sx, drawMapList[0]->sy, drawMapList[0]->M - 1, drawMapList[0]->N - 1);
         pool->start(dbfs);
         dbfs->setAutoDelete(false);
         tim->start();
         start = clock();
-        this->progressBarStart(); });
-    connect(ui->Bfs, &QPushButton::clicked, this, [=]()
-            {
+        this->progressBarStart();
+    });
+    connect(ui->Bfs, &QPushButton::clicked, this, [=]() {
         bfs->init(drawMapList[0], drawMapList[0]->sx, drawMapList[0]->sy, drawMapList[0]->M - 1, drawMapList[0]->N - 1);
         pool->start(bfs);
         bfs->setAutoDelete(false);
         tim->start();
         start = clock();
-        this->progressBarStart(); });
-    connect(ui->Dfs, &QPushButton::clicked, this, [=]()
-            {
+        this->progressBarStart();
+    });
+    connect(ui->Dfs, &QPushButton::clicked, this, [=]() {
         dfs->init(drawMapList[0], drawMapList[0]->sx, drawMapList[0]->sy, drawMapList[0]->M - 1, drawMapList[0]->N - 1);
         pool->start(dfs);
         dfs->setAutoDelete(false);
         tim->start();
         start = clock();
-        this->progressBarStart(); });
+        this->progressBarStart();
+    });
     // 输入框连接滑动条
-    connect(ui->spinBox, QOverload<int>::of(&QSpinBox::valueChanged), ui->horizontalSlider, &QSlider::setValue);
+    connect(ui->spinBox, &QSpinBox::valueChanged, ui->horizontalSlider, &QSlider::setValue);
     // 控制时间设置
-    connect(ui->spinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, [=](int val)
-            { tim->setInterval(val); });
+    connect(ui->spinBox, &QSpinBox::valueChanged, this, [=](int val) {
+        tim->setInterval(val);
+    });
     // 滑动条连接输入框
-    connect(ui->horizontalSlider, QOverload<int>::of(&QSlider::valueChanged), ui->spinBox, &QSpinBox::setValue);
+    connect(ui->horizontalSlider, &QSlider::valueChanged, ui->spinBox, &QSpinBox::setValue);
     // 控制时间设置
-    connect(ui->horizontalSlider, QOverload<int>::of(&QSlider::valueChanged), this, [=](int val)
-            { tim->setInterval(val); });
+    connect(ui->horizontalSlider, &QSlider::valueChanged, this, [=](int val) {
+        tim->setInterval(val);
+    });
 }
 // 进度条开始状态
 void Widget::progressBarStart()
@@ -213,20 +217,18 @@ void Widget::progressBarEnd()
     ui->gameStatus->setValue(100);
 }
 // 事件过滤
-bool Widget::eventFilter(QObject *watcher, QEvent *event)
+bool Widget::eventFilter(QObject* watcher, QEvent* event)
 {
 
     // 主窗口绘图事件处理
-    if (watcher == this && event->type() == QEvent::Paint)
-    {
-        QPainter *Painter = new QPainter(this);
+    if (watcher == this && event->type() == QEvent::Paint) {
+        QPainter* Painter = new QPainter(this);
         Painter->fillRect(0, 0, this->width(), this->height(), QBrush(QColor(255, 255, 255)));
     }
     // 子窗口绘图事件处理
-    if (watcher == ui->GameWidget && event->type() == QEvent::Paint)
-    {
+    if (watcher == ui->GameWidget && event->type() == QEvent::Paint) {
         // 双缓存绘制
-        QPainter *Painter = new QPainter(ui->GameWidget);
+        QPainter* Painter = new QPainter(ui->GameWidget);
         Painter->drawPixmap(0, 0, *pix);
     }
     return QWidget::eventFilter(watcher, event);

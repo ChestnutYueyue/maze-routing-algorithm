@@ -30,7 +30,7 @@ void DBFS::run()
     mp->map[sx][sy] = 4;
     mp->map[ex][ey] = 4;
     bool flags = false;
-    int x = 0, y = 0, tx = 0, ty = 0, Astep = 0, Bstep = 0;
+    int x, y, tx, ty, Astep, Bstep;
     QColor Color;
     emit SendDra(pStart.x, pStart.y, pStart.Step, pStart.Dir, pStart.Color);
     cond->wait(mutex);

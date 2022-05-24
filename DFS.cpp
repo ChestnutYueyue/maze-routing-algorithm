@@ -49,13 +49,13 @@ void DFS::run()
         if (k < 4) {
             temp.x = tx;
             temp.y = ty;
-            temp.Step++;
+            temp.Step += 1;
             temp.Dir = Dir[k];
             temp.Color = QColor(135, 206, 235);
             s.push(temp);
             mp->map[tx][ty] = 2;
         } else {
-            temp.Step--;
+            temp.Step -= 1;
             temp.Dir = "";
             temp.Color = QColor(255, 106, 106);
             s.pop();

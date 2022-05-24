@@ -14,6 +14,7 @@
 class BFS : public QObject, public QRunnable {
     Q_OBJECT
 private:
+
     // 一般直接采用移位加异或（XOR）得到哈希值
     class HashFunc {
     public:

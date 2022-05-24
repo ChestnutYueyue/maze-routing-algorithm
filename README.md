@@ -5,14 +5,13 @@
  ## 开发环境
  - 编程语言：C++11
  - 图像界面：Qt6.2.3
- - 测试运行IDE：vscode + GCC + XMake
- - XMake配置：xmake f -p mingw --mingw=x:/Qt/Tools/mingw900_64 -c 
- ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/主界面.png?raw=true) \
- ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/DFS.png?raw=true) \
- ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/BFS.png?raw=true) \
- ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/DBFS.png?raw=true) 
+ - 测试运行IDE：vscode + GCC11.2 + CMake \
+ ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/主界面.png) \
+ ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/DFS.png) \
+ ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/BFS.png) \
+ ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/DBFS.png) 
 
- ## v1.4.0更新(优化)
+ ## v1.4.0更新（优化）
  - [x] 优化了基础框架提高了适用性和简易性
  - [x] 再次优化了绘图方式解决了延迟导致运行效率低问题，进一步提升了绘图运行效率
  - [x] 更改了重置地图的方式，采用了拷贝对象抛弃了原有的循环重置地图数据，进一步提高了运行速度
@@ -39,7 +38,5 @@
 - [x] 重置地图
 
  ## 感谢
- <div align="center">
-<h2 align="center">双向BFS算法的关键中间状态确认由我的好友 cribug_one <br />指导完成非常感谢各位帮助！！</h2>
-</div>
- 
+ 双向BFS算法的关键中间状态确认由我的好友 *cribug_one* 指导完成\
+ 非常感谢各位帮助！！
