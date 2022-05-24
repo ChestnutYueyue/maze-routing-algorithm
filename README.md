@@ -7,10 +7,10 @@
  - 图像界面：Qt6.2.3
  - 测试运行IDE：vscode + GCC + XMake
  - XMake配置：xmake f -p mingw --mingw=x:/Qt/Tools/mingw900_64 -c 
- ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/主界面.png) \
- ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/DFS.png) \
- ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/BFS.png) \
- ![演示](https://gitee.com/ricocosoul_admin/maze-routing-algorithm/raw/master/img/DBFS.png) 
+ ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/主界面.png?raw=true) \
+ ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/DFS.png?raw=true) \
+ ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/BFS.png?raw=true) \
+ ![演示](https://github.com/ChestnutYueyue/maze-routing-algorithm/blob/master/img/DBFS.png?raw=true) 
 
  ## v1.4.0更新(优化)
  - [x] 优化了基础框架提高了适用性和简易性
