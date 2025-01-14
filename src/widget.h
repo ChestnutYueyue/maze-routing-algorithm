@@ -3,6 +3,7 @@
 #include "BFS.h"
 #include "DBFS.h"
 #include "DFS.h"
+#include "AStar.h"
 #include "Map.h"
 #include "Point.h"
 #include <QList>
@@ -61,6 +62,7 @@ public:
     BFS* bfs;
     DFS* dfs;
     DBFS* dbfs;
+    AStar* astar;
     // 计时器
     QTimer* tim;
     // 线程池

@@ -49,6 +49,7 @@ void Widget::ThreadedTasks()
     bfs = new BFS;
     dfs = new DFS;
     dbfs = new DBFS;
+    astar = new AStar;
 }
 void Widget::MapInitialize()
 {
@@ -115,6 +116,12 @@ void Widget::ThreadSignalConnections()
         this->GameInfoUpdate(x, y, step); });
     connect(dfs, &DFS::SendFlags, this, [=]()
             { this->progressBarEnd(); });
+    connect(astar, &AStar::SendDra, this, [=](int x, int y, int step, QString Dir, QColor Color)
+            {
+        this->mapDraw(x, y, step, Dir, Color);
+        this->GameInfoUpdate(x, y, step); });
+    connect(astar, &AStar::SendFlags, this, [=]()
+            { this->progressBarEnd(); });
 }
 // 时间信号连接
 void Widget::TimeSignalConnections()
@@ -124,6 +131,7 @@ void Widget::TimeSignalConnections()
         bfs->resume();
         dfs->resume();
         dbfs->resume();
+        astar->resume();
         update(); });
 }
 // 按钮连接设置
@@ -183,6 +191,14 @@ void Widget::buttonSettings()
         dfs->init(drawMapList[0], drawMapList[0]->sx, drawMapList[0]->sy, drawMapList[0]->M - 1, drawMapList[0]->N - 1);
         pool->start(dfs);
         dfs->setAutoDelete(false);
+        tim->start();
+        start = clock();
+        this->progressBarStart(); });
+    connect(ui->AStar, &QPushButton::clicked, this, [=]()
+            {
+        astar->init(drawMapList[0], drawMapList[0]->sx, drawMapList[0]->sy, drawMapList[0]->M - 1, drawMapList[0]->N - 1);
+        pool->start(astar);
+        astar->setAutoDelete(false);
         tim->start();
         start = clock();
         this->progressBarStart(); });
